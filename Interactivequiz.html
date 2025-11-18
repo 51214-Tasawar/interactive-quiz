@@ -22,13 +22,13 @@
       <p class="text1">Don't rush — choose the best answer.</p>
       <div class="Test-box">
         <div class="Qbox" id="Qbox"></div>
-        <button class="S-btn">Save&Next</button>
+        <button class="S-btn" onclick="Next()">Save&Next</button>
       </div>
-      <button class="R-btn">Reset</button>
+      <button class="R-btn" onclick="Reset()">Reset</button>
     </div>
     <script>
-      let QuestNum = 0 
-      
+      let Questions = [];
+      let Index = 0;
       function StartQuiz() {
         document.getElementById("innerBox").style.display = "flex";
         document.getElementById("outerBox").style.display = "none";
@@ -37,31 +37,51 @@
         document.getElementById("innerBox").style.display = "none";
         document.getElementById("outerBox").style.display = "flex";
       }
-     
-      fetch("Questions.json")
-        .then((data) => data.json())
-        .then((Questions) => {
-          document.getElementById('Qbox').innerHTML = Questions.map((Q)=>(
-            `<p> Question No : ${Q.question}</p>
-            <div> 
-               <input type="radio" name="name1" id="option1" class="option1">
-               <label id="option1" class="option1">${Q.option1}</label>
-            </div>
-            <div> 
-               <input type="radio" name="name1" id="option2" class="option2">
-               <label id="option2" class="option2">${Q.option2}</label>
-            </div>
-            <div> 
-               <input type="radio" name="name1" id="option3" class="option3">
-               <label id="option3" class="option3">${Q.option3}</label>
-            </div>
-            <div> 
-               <input type="radio" name="name1" id="option4" class="option4">
-               <label id="option4" class="option4">${Q.option4}</label>
-            </div>
-              `
-          )).join("")
-        })
+      function ShowData() {
+        fetch("Questions.json")
+          .then((res) => res.json())
+          .then((data) => {
+            Questions = data;
+            showQuestion()
+          });
+      }
+      function showQuestion() {
+        if (Index >= Questions.length) {
+          document.getElementById(
+            "Qbox"
+          ).innerHTML = `<h1>Quiz Session Completed Successfully </h1>`;
+          return;
+        }
+        let newQuestion = Questions[Index];
+        document.getElementById("Qbox").innerHTML = `
+        <p>Q-${Index + 1} : ${newQuestion.question}</p>
+      <div>
+      <input type="radio" name="AnswarBox" id="option1" class="option1">
+      <label for="option1">${newQuestion.option1}</label>
+      </div>
+      <div>
+      <input type="radio" name="AnswarBox" id="option2" class="option2">
+      <label for="option2">${newQuestion.option2}</label>
+      </div>
+      <div>
+      <input type="radio" name="AnswarBox" id="option3" class="option3">
+      <label for="option3">${newQuestion.option3}</label>
+      </div>
+      <div>
+      <input type="radio" name="AnswarBox" id="option4" class="option4">
+      <label for="option4">${newQuestion.option4}</label>
+      </div>
+      `;
+      }
+      function Next(){
+        Index++
+        showQuestion()
+      }
+      function Reset(){
+        Index = 0 
+        showQuestion()
+      }
+      ShowData()
     </script>
   </body>
 </html>

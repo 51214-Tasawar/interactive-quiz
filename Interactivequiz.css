@@ -67,12 +67,15 @@ html{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5px;
 }
 .Qbox{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 90%;
+    padding: 15PX;
+    border-radius: 10PX;
+    width: 70%;
+    height: 70%;
 }
 .S-btn{
     width: 70%;
@@ -104,5 +107,10 @@ html{
 .R-btn:hover{ 
  background-color: white;
  color: red;
+}
+label , p{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+
 }
 
