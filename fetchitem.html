@@ -1,82 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        *{
-            margin: 0%;
-        }
-        body{
-            display: flex;
-            flex-direction: column;
-        }
-        .outerBox{
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-            height: 450px;
-        }
-        .innerBox {
-            display: flex;
-            flex-wrap: wrap;
-            width: 150px;
-            height: 190px;
+      * {
+        margin: 0%;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+      .DataBox {
+        display: flex;
+        flex-direction: column;    
+        width: 240px;
+        height: 240px;
+        border-radius: 15px;
+        font-weight: 500;
+        background-color: red;
 
-        }
-        button{
-            height: 50px;
-            width: 150px;
-            background-color: blue;
-            color: white;
-            border-radius: 15px;
-        }
+      }
+      button {
+        font-size: 15px;
+        font-family: "Times New Roman", Times, serif;
+        width: 180px;
+        height: 40px;
+        background-color: blue;
+        color: white;
+        border-radius: 20px;
+      }
     </style>
-</head>
-<body>
-     <div class="outerBox" id="outerBox">
-      <div class="innerBox" id="innerBox"></div>
-     </div>
-      <button onclick="nextStudent()">Next Student</button>
-      <button onclick="ResetData()">See Again</button>
+  </head>
+  <body>
+    <div class="DataBox" id="DataBox"></div>
+    <button onclick="Next()">Next</button>
+    <button onclick="Reset()">Reset Data</button>
     <script>
-        let Students = []
-        let index = 0 
-        function ShowData(){
-            fetch('Student.json')
-            .then(res=>res.json())
-            .then((data)=>{
-                Students = data
-                ShowStudent()
-            })
+      let Students = [];
+      let index = 0;
+      function Studentdata() {
+        fetch("Student.json")
+          .then((res) => res.json())
+          .then((stu) => {
+            Students = stu;
+            showStudent()   
+          });
+      }
+      function showStudent() {
+        if (index >= Students.length) {
+          document.getElementById(
+            "DataBox"
+          ).innerHTML = `<h1> All Student Visited ... </h1>`;
         }
-        function ShowStudent(){
-              if(index >= Students.length){
-                document.getElementById('innerBox').innerHTML =
-                `
-                <h1>All Student Visited</h1>
-                `
-                return
-            }
-            let student = Students[index]
-            document.getElementById('innerBox').innerHTML = 
-            `
-            <p> Name : ${student.id} </p>
-            <p> Name : ${student.name} </p>
-            <p> Name : ${student.email} </p>
-            `
-          
-        }
-        function ResetData(){
-           index = 0
-          ShowStudent()
-        }
-        function nextStudent(){
-            index++
-          ShowStudent()
-        }
-        ShowData()
+        let student = Students[index];
+        document.getElementById("DataBox").innerHTML = `<p> Student Info </p>
+       <p> Student Id   : ${student.id}</p>
+       <p> Student Name : ${student.name} </p>
+       <p> Student Email: ${student.email} </p>`;
+      }
+      function Next(){
+        index++
+        showStudent()
+    }
+    function Reset(){
+        index = 0
+        showStudent()
+    }
+    Studentdata()
     </script>
-</body>
+
+  </body>
 </html>
