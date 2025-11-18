@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .outerBox {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .st-box {
+            height: 290px;
+            width: 200px;
+            background-color: blue;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .st-box p {
+            font-size: 12px;
+            color: white;
+            font-family: 'Times New Roman';
+        }
+    </style>
+</head>
+<body>
+<div class="outerBox" id="outerBox"></div>
+<script>
+fetch('Studennt.json')
+  .then((res) => res.json())
+  .then((students) => {
+    document.getElementById('outerBox').innerHTML = students
+      .map((stu) => `
+        <div class="st-box">
+            <p>Id: ${stu.id}</p>
+            <p>Name: ${stu.name}</p>
+            <p>Age: ${stu.age}</p>
+            <p>Grade: ${stu.grade}</p>
+            <p>Email: ${stu.email}</p>
+        </div>
+      `)
+      .join("");
+  });
+</script>
+
+</body>
+</html>
+

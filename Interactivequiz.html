@@ -1,42 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <link rel="stylesheet" href="./Interactivequiz.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./Interactivequiz.css" />
+  </head>
+  <body>
     <div class="Main-container" id="outerBox">
-    <p  class="text1">Challenge yourself and see how much you know!</p>
-    <button class="btn1" onclick="StartQuiz()">Start Quiz</button>
+      <p class="text1">Challenge yourself and see how much you know!</p>
+      <button class="btn1" onclick="StartQuiz()">Start Quiz</button>
     </div>
     <div class="Inner-container" id="innerBox">
-     <div class="nev-btn" onclick="Homepage()"><button><i class="fa-solid fa-arrow-left"></i></button></div>
-     <p class="text1">Don't rush — choose the best answer.</p>
-     <div class="Test-box">
-     <div class="Qbox">
-     </div>
-     <button class="S-btn">Submit</button>
-     </div>
-     <button class="R-btn">Reset</button>
+      <div class="nev-btn" onclick="Homepage()">
+        <button><i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+      <p class="text1">Don't rush — choose the best answer.</p>
+      <div class="Test-box">
+        <div class="Qbox" id="Qbox"></div>
+        <button class="S-btn">Save&Next</button>
+      </div>
+      <button class="R-btn">Reset</button>
     </div>
     <script>
-        function StartQuiz(){
-            document.getElementById('innerBox').style.display = 'flex'
-            document.getElementById('outerBox').style.display = 'none'
-        }
-        function Homepage(){
-            document.getElementById('innerBox').style.display = 'none'
-            document.getElementById('outerBox').style.display = 'flex'
-        }
-        fetch('D:\Dev-Bazm\interactive-quiz\Questions.txt')
-        .then(res=>res.json())
-        .then(data=>{
-            data.map
+      let QuestNum = 0 
+      
+      function StartQuiz() {
+        document.getElementById("innerBox").style.display = "flex";
+        document.getElementById("outerBox").style.display = "none";
+      }
+      function Homepage() {
+        document.getElementById("innerBox").style.display = "none";
+        document.getElementById("outerBox").style.display = "flex";
+      }
+     
+      fetch("Questions.json")
+        .then((data) => data.json())
+        .then((Questions) => {
+          document.getElementById('Qbox').innerHTML = Questions.map((Q)=>(
+            `<p> Question No : ${Q.question}</p>
+            <div> 
+               <input type="radio" name="name1" id="option1" class="option1">
+               <label id="option1" class="option1">${Q.option1}</label>
+            </div>
+            <div> 
+               <input type="radio" name="name1" id="option2" class="option2">
+               <label id="option2" class="option2">${Q.option2}</label>
+            </div>
+            <div> 
+               <input type="radio" name="name1" id="option3" class="option3">
+               <label id="option3" class="option3">${Q.option3}</label>
+            </div>
+            <div> 
+               <input type="radio" name="name1" id="option4" class="option4">
+               <label id="option4" class="option4">${Q.option4}</label>
+            </div>
+              `
+          )).join("")
         })
     </script>
-</body>
+  </body>
 </html>

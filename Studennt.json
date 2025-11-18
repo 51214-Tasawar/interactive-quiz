@@ -1,0 +1,7 @@
+[
+    { "id": 1, "name": "Ali Ahmed", "age": 20, "grade": "A", "email": "ali.ahmed@example.com" },
+    { "id": 2, "name": "Sara Khan", "age": 22, "grade": "B+", "email": "sara.khan@example.com" },
+    { "id": 3, "name": "Hamza Tariq", "age": 19, "grade": "A+", "email": "hamza.tariq@example.com" },
+    { "id": 4, "name": "Ayesha Malik", "age": 21, "grade": "B", "email": "ayesha.malik@example.com" },
+    { "id": 5, "name": "Usman Raza", "age": 23, "grade": "C+", "email": "usman.raza@example.com" }
+]
