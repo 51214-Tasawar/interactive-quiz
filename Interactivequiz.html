@@ -26,6 +26,11 @@
       </div>
       <button class="R-btn" onclick="Reset()">Reset</button>
     </div>
+    <!-- Scoring Board -->
+    <div class="scoringBox" id="scoringBox">
+     <div class="corect" id="corect"></div>
+     <div class="wrong" id="wrong"></div>
+    </div>
     <script>
       let Questions = [];
       let Index = 0;
@@ -46,34 +51,41 @@
           });
       }
       function showQuestion() {
-        if (Index >= Questions.length) {
-          document.getElementById(
-            "Qbox"
-          ).innerHTML = `<h1>Quiz Session Completed Successfully </h1>`;
-          return;
-        }
+        // if (Index >= Questions.length) {
+        //   document.getElementById("scoringBox" ).style.display = 'flex' ;
+        //   document.getElementById("outerBox").style.display = "none";
+        //   document.getElementById("innerBox").style.display = "none";
+        //   return;
+        // }
         let newQuestion = Questions[Index];
         document.getElementById("Qbox").innerHTML = `
-        <p>Q-${Index + 1} : ${newQuestion.question}</p>
+      <p>Q-${Index + 1} : ${newQuestion.question}</p>
       <div>
-      <input type="radio" name="AnswarBox" id="option1" class="option1">
+      <input type="radio" name="AnswarBox" id="option1" class="option1" value="${newQuestion.option1}">
       <label for="option1">${newQuestion.option1}</label>
       </div>
       <div>
-      <input type="radio" name="AnswarBox" id="option2" class="option2">
+      <input type="radio" name="AnswarBox" id="option2" class="option2" value="${newQuestion.option2}">
       <label for="option2">${newQuestion.option2}</label>
       </div>
       <div>
-      <input type="radio" name="AnswarBox" id="option3" class="option3">
+      <input type="radio" name="AnswarBox" id="option3" class="option3"  value="${newQuestion.option3}">
       <label for="option3">${newQuestion.option3}</label>
       </div>
       <div>
-      <input type="radio" name="AnswarBox" id="option4" class="option4">
+      <input type="radio" name="AnswarBox" id="option4" class="option4" value="${newQuestion.option4}">
       <label for="option4">${newQuestion.option4}</label>
       </div>
       `;
       }
       function Next(){
+        let select = document.querySelector('input[name="AnswarBox"]:checked')
+          if(!select){
+          alert('Please Select Answar ')
+          return
+        } 
+        let Answar = select.value
+        let newQuestion = Questions[Index];
         Index++
         showQuestion()
       }
@@ -81,6 +93,7 @@
         Index = 0 
         showQuestion()
       }
+     
       ShowData()
     </script>
   </body>
