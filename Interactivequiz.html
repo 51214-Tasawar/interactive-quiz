@@ -40,20 +40,24 @@
      </div>
      </div>
      <div class="btn-section">
-      <button class="btn-section1">Return to Home</button>
-      <button class="btn-section2">Start the Quiz</button>
+      <button class="btn-section1" onclick="Homepage()">Return to Home</button>
+      <button class="btn-section2" onclick="StartQuiz()">Start the Quiz</button>
      </div>
     </div>
     <script>
       let Questions = [];
       let Index = 0;
+      let Cnum = 0 
+      let Wnum = 0
       function StartQuiz() {
         document.getElementById("innerBox").style.display = "flex";
         document.getElementById("outerBox").style.display = "none";
+        Reset()
       }
       function Homepage() {
         document.getElementById("innerBox").style.display = "none";
         document.getElementById("outerBox").style.display = "flex";
+        Reset()
       }
       function ShowData() {
         fetch("Questions.json")
@@ -92,21 +96,30 @@
       `;
       }
       function Next(){
-        // let select = document.querySelector('input[name="AnswarBox"]:checked')
-        //   if(!select){
-        //   alert('Please Select Answar ')
-        //   return
-        // } 
-        // let Answar = select.value
-        // let newQuestion = Questions[Index];
+        let select = document.querySelector('input[name="AnswarBox"]:checked')
+          if(!select){
+          alert('Please Select Answar ')
+          return
+         } 
+        let Answar = select.value
+        let correct = Questions[Index].answer;
+        if(Answar == correct){
+          Cnum++;
+        }
+        else{
+          Wnum++;
+        }
+        document.getElementById('C-answar').innerHTML = Cnum ;
+        document.getElementById('W-answar').innerHTML = Wnum ;
         Index++
         showQuestion()
       }
       function Reset(){
         Index = 0 
+        Cnum = 0
+        Wnum = 0
         showQuestion()
       }
-     
       ShowData()
     </script>
   </body>
