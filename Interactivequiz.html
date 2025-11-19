@@ -28,8 +28,21 @@
     </div>
     <!-- Scoring Board -->
     <div class="scoringBox" id="scoringBox">
-     <div class="corect" id="corect"></div>
-     <div class="wrong" id="wrong"></div>
+      <p> Your Scoring Board is following ... </p>
+     <div class="Boxes">
+      <div class="corect" id="corect">
+      <p>Correct Answar </p>
+      <p id="C-answar"></p>
+     </div>
+     <div class="wrong" id="wrong">
+      <p>Wrong Answar </p>
+      <p id="W-answar"></p>
+     </div>
+     </div>
+     <div class="btn-section">
+      <button class="btn-section1">Return to Home</button>
+      <button class="btn-section2">Start the Quiz</button>
+     </div>
     </div>
     <script>
       let Questions = [];
@@ -51,12 +64,12 @@
           });
       }
       function showQuestion() {
-        // if (Index >= Questions.length) {
-        //   document.getElementById("scoringBox" ).style.display = 'flex' ;
-        //   document.getElementById("outerBox").style.display = "none";
-        //   document.getElementById("innerBox").style.display = "none";
-        //   return;
-        // }
+        if (Index >= Questions.length) {
+          document.getElementById("scoringBox" ).style.display = 'flex' ;
+          document.getElementById("outerBox").style.display = "none";
+          document.getElementById("innerBox").style.display = "none";
+          return;
+        }
         let newQuestion = Questions[Index];
         document.getElementById("Qbox").innerHTML = `
       <p>Q-${Index + 1} : ${newQuestion.question}</p>
@@ -79,13 +92,13 @@
       `;
       }
       function Next(){
-        let select = document.querySelector('input[name="AnswarBox"]:checked')
-          if(!select){
-          alert('Please Select Answar ')
-          return
-        } 
-        let Answar = select.value
-        let newQuestion = Questions[Index];
+        // let select = document.querySelector('input[name="AnswarBox"]:checked')
+        //   if(!select){
+        //   alert('Please Select Answar ')
+        //   return
+        // } 
+        // let Answar = select.value
+        // let newQuestion = Questions[Index];
         Index++
         showQuestion()
       }
