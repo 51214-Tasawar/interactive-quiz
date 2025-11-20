@@ -3,11 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Student Viewer</title>
+
     <style>
       * {
-        margin: 0%;
+        margin: 0;
+        padding: 0;
       }
+
       body {
         height: 100vh;
         display: flex;
@@ -15,75 +18,122 @@
         align-items: center;
         justify-content: center;
         gap: 20px;
+        font-family: Arial, Helvetica, sans-serif;
       }
+
       .DataBox {
         display: flex;
-        flex-direction: column;    
+        flex-direction: column;
         width: 240px;
         height: 240px;
         border-radius: 15px;
         font-weight: 500;
         background-color: red;
-
+        padding: 20px;
+        color: white;
       }
-      .Timerbox ,button {
+
+      .Timerbox,
+      button {
         font-size: 15px;
-        font-family: "Times New Roman", Times, serif;
         width: 180px;
         height: 40px;
         background-color: blue;
         color: white;
         border-radius: 20px;
         cursor: pointer;
+        border: none;
       }
-      button:hover{
+      button:hover {
         background-color: white;
         color: blue;
+        border: 1px solid blue;
+      }
+      /* Progress Bar Box */
+      #progressContainer {
+        width: 300px;
+        height: 25px;
+        border-radius: 20px;
+        background: #ddd;
+        overflow: hidden;
+      }
+      /* Progress Bar */
+      #progress {
+        height: 100%;
+        width: 0%;
+        background: green;
+        text-align: center;
+        line-height: 25px;
+        font-weight: bold;
+        color: white;
       }
     </style>
   </head>
+
   <body>
     <div class="DataBox" id="DataBox"></div>
+
     <button onclick="Next()">Next</button>
     <button onclick="Reset()">Reset Data</button>
-    <button onclick="">Click to Start</button>
-    <p  id="TimerBox" class="Timerbox"> </p>
+
+    <!-- Progress Bar -->
+    <div id="progressContainer">
+      <div id="progress">0%</div>
+    </div>
+
     <script>
       let Students = [];
       let index = 0;
+
       function Studentdata() {
         fetch("Student.json")
           .then((res) => res.json())
           .then((stu) => {
             Students = stu;
-            showStudent()   
+            showStudent();
           });
       }
+
       function showStudent() {
         if (index >= Students.length) {
           document.getElementById(
             "DataBox"
-          ).innerHTML = `<h1> All Student Visited ... </h1>`;
+          ).innerHTML = `<h2>All Students Visited...</h2>`;
+          // updateProgress();
+          return;
         }
         let student = Students[index];
-        document.getElementById("DataBox").innerHTML = `<p> Student Info </p>
-       <p> Student Id   : ${student.id}</p>
-       <p> Student Name : ${student.name} </p>
-       <p> Student Email: ${student.email} </p>`;
+        document.getElementById("DataBox").innerHTML = `
+          <p><b>Student Info</b></p>
+          <p>ID: ${student.id}</p>
+          <p>Name: ${student.name}</p>
+          <p>Email: ${student.email}</p>
+        `;
+        // updateProgress();
       }
-      function Next(){
-        index++
-        showStudent()
-    }
-    function Reset(){
-        index = 0
-        showStudent()
-    }
-    function Start(){
-      set
-    }
-    Studentdata()
-    </script>
 
+      function Next() {
+        if (index < Students.length) {
+          index++;
+          showStudent();
+        }
+      }
+
+      function Reset() {
+        index = 0;
+        showStudent();
+      }
+
+      // Update Progress Bar
+      function updateProgress() {
+        let percent = ((index + 1) / Students.length) * 100;
+        if (percent > 100) percent = 100;
+        let progressBar = document.getElementById("progress");
+        progressBar.style.width = percent + "%";
+        progressBar.innerText = Math.floor(percent) + "%";
+      }
+
+      Studentdata();
+    </script>
   </body>
 </html>

@@ -23,9 +23,11 @@
       <div class="Test-box">
         <div class="Qbox" id="Qbox"></div>
         <button class="S-btn" onclick="Next()">Save&Next</button>
-        <div class="N-Box" id="N-Box">
-          <div class="p-box" id="p-box"></div>
-          <p>Test</p>
+        <div class="container">
+          <div class="progress">
+            <div id="P-bar"></div>
+          </div>
+          <p id="p-Text" ></p>
         </div>
       </div>
       <button class="R-btn" onclick="Reset()">Reset</button>
@@ -43,7 +45,10 @@
           <p id="W-answar"></p>
         </div>
       </div>
-      <div class="Rp-Box" id="Rp-Box"></div>
+      <div class="Resultbar">
+     <div id="Abar"></div>
+     <div id="Wbar"></div>
+      </div>
       <div class="btn-section">
         <button class="btn-section1" onclick="Homepage()">
           Return to Home
@@ -111,6 +116,9 @@
       <label for="option4">${newQuestion.option4}</label>
       </div>
       `;
+      document.getElementById('p-Text').innerHTML = `${Index+1} / ${Questions.length}`
+      progressbar()
+      Resultbar()
       }
       function Next() {
         let select = document.querySelector('input[name="AnswarBox"]:checked');
@@ -136,6 +144,28 @@
         Wnum = 0;
         showQuestion();
       }
+    function progressbar(){
+      let percentage = ((Index+1)/ Questions.length) * 100
+      if(percentage > 100){
+        return 100
+      }
+      let bar = document.getElementById('P-bar')
+      bar.style.width = `${percentage}%`
+    }
+    function Resultbar(){
+  let totalQuestions = Questions.length;
+  let correctPercentage = (Cnum / totalQuestions) * 100;
+  let wrongPercentage = (Wnum / totalQuestions) * 100;
+
+  // limit 100%
+  if(correctPercentage > 100) correctPercentage = 100;
+  if(wrongPercentage > 100) wrongPercentage = 100;
+
+  // Set Bars
+  document.getElementById('Abar').style.width = `${correctPercentage}%`;
+  document.getElementById('Wbar').style.width = `${wrongPercentage}%`;
+}
+
       ShowData();
     </script>
   </body>
