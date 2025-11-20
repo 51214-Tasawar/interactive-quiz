@@ -23,53 +23,62 @@
       <div class="Test-box">
         <div class="Qbox" id="Qbox"></div>
         <button class="S-btn" onclick="Next()">Save&Next</button>
+        <div class="N-Box" id="N-Box">
+          <div class="p-box" id="p-box"></div>
+          <p>Test</p>
+        </div>
       </div>
       <button class="R-btn" onclick="Reset()">Reset</button>
     </div>
     <!-- Scoring Board -->
     <div class="scoringBox" id="scoringBox">
-      <p> Your Scoring Board is following ... </p>
-     <div class="Boxes">
-      <div class="corect" id="corect">
-      <p>Correct Answar </p>
-      <p id="C-answar"></p>
-     </div>
-     <div class="wrong" id="wrong">
-      <p>Wrong Answar </p>
-      <p id="W-answar"></p>
-     </div>
-     </div>
-     <div class="btn-section">
-      <button class="btn-section1" onclick="Homepage()">Return to Home</button>
-      <button class="btn-section2" onclick="StartQuiz()">Start the Quiz</button>
-     </div>
+      <p>Your Scoring Board is following ...</p>
+      <div class="Boxes">
+        <div class="corect" id="corect">
+          <p>Correct Answar</p>
+          <p id="C-answar"></p>
+        </div>
+        <div class="wrong" id="wrong">
+          <p>Wrong Answar</p>
+          <p id="W-answar"></p>
+        </div>
+      </div>
+      <div class="Rp-Box" id="Rp-Box"></div>
+      <div class="btn-section">
+        <button class="btn-section1" onclick="Homepage()">
+          Return to Home
+        </button>
+        <button class="btn-section2" onclick="StartQuiz()">
+          Start the Quiz
+        </button>
+      </div>
     </div>
     <script>
       let Questions = [];
       let Index = 0;
-      let Cnum = 0 
-      let Wnum = 0
+      let Cnum = 0;
+      let Wnum = 0;
       function StartQuiz() {
         document.getElementById("innerBox").style.display = "flex";
         document.getElementById("outerBox").style.display = "none";
-        Reset()
+        Reset();
       }
       function Homepage() {
         document.getElementById("innerBox").style.display = "none";
         document.getElementById("outerBox").style.display = "flex";
-        Reset()
+        Reset();
       }
       function ShowData() {
         fetch("Questions.json")
           .then((res) => res.json())
           .then((data) => {
             Questions = data;
-            showQuestion()
+            showQuestion();
           });
       }
       function showQuestion() {
         if (Index >= Questions.length) {
-          document.getElementById("scoringBox" ).style.display = 'flex' ;
+          document.getElementById("scoringBox").style.display = "flex";
           document.getElementById("outerBox").style.display = "none";
           document.getElementById("innerBox").style.display = "none";
           return;
@@ -78,49 +87,56 @@
         document.getElementById("Qbox").innerHTML = `
       <p>Q-${Index + 1} : ${newQuestion.question}</p>
       <div>
-      <input type="radio" name="AnswarBox" id="option1" class="option1" value="${newQuestion.option1}">
+      <input type="radio" name="AnswarBox" id="option1" class="option1" value="${
+        newQuestion.option1
+      }">
       <label for="option1">${newQuestion.option1}</label>
       </div>
       <div>
-      <input type="radio" name="AnswarBox" id="option2" class="option2" value="${newQuestion.option2}">
+      <input type="radio" name="AnswarBox" id="option2" class="option2" value="${
+        newQuestion.option2
+      }">
       <label for="option2">${newQuestion.option2}</label>
       </div>
       <div>
-      <input type="radio" name="AnswarBox" id="option3" class="option3"  value="${newQuestion.option3}">
+      <input type="radio" name="AnswarBox" id="option3" class="option3"  value="${
+        newQuestion.option3
+      }">
       <label for="option3">${newQuestion.option3}</label>
       </div>
       <div>
-      <input type="radio" name="AnswarBox" id="option4" class="option4" value="${newQuestion.option4}">
+      <input type="radio" name="AnswarBox" id="option4" class="option4" value="${
+        newQuestion.option4
+      }">
       <label for="option4">${newQuestion.option4}</label>
       </div>
       `;
       }
-      function Next(){
-        let select = document.querySelector('input[name="AnswarBox"]:checked')
-          if(!select){
-          alert('Please Select Answar ')
-          return
-         } 
-        let Answar = select.value
-        let correct = Questions[Index].answer;
-        if(Answar == correct){
-          Cnum++;
+      function Next() {
+        let select = document.querySelector('input[name="AnswarBox"]:checked');
+        if (!select) {
+          alert("Please Select Answar ");
+          return;
         }
-        else{
+        let Answar = select.value;
+        let correct = Questions[Index].answer;
+        if (Answar == correct) {
+          Cnum++;
+        } else {
           Wnum++;
         }
-        document.getElementById('C-answar').innerHTML = Cnum ;
-        document.getElementById('W-answar').innerHTML = Wnum ;
-        Index++
-        showQuestion()
+        document.getElementById("C-answar").innerHTML = Cnum;
+        document.getElementById("W-answar").innerHTML = Wnum;
+        Index++;
+        showQuestion();
       }
-      function Reset(){
-        Index = 0 
-        Cnum = 0
-        Wnum = 0
-        showQuestion()
+      function Reset() {
+        Index = 0;
+        Cnum = 0;
+        Wnum = 0;
+        showQuestion();
       }
-      ShowData()
+      ShowData();
     </script>
   </body>
 </html>

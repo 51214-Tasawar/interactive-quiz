@@ -67,7 +67,7 @@ html{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 15px;
 }
 .Qbox{
     display: flex;
@@ -91,6 +91,21 @@ html{
 .S-btn:hover{
     background-color: white;
     color: blue;
+}
+.N-Box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    width: 95%;
+    border-radius: 5%;
+    gap: 10px;
+}
+.p-box{
+    height: 20%;
+    width: 85%;
+    background-color: greenyellow;
+    border-radius: 10px;
 }
 .R-btn{
     width: 40%;
@@ -195,4 +210,9 @@ label , p{
 .btn-section2:hover{
     background-color: white;
     color: red;
+}
+.Rp-Box{
+    width: 50%;
+    height: 40px;
+    background-color: red;
 }
