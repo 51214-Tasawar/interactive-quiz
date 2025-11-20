@@ -83,6 +83,7 @@
       }
       function showQuestion() {
         if (Index >= Questions.length) {
+          Resultbar()
           document.getElementById("scoringBox").style.display = "flex";
           document.getElementById("outerBox").style.display = "none";
           document.getElementById("innerBox").style.display = "none";
@@ -118,7 +119,7 @@
       `;
       document.getElementById('p-Text').innerHTML = `${Index+1} / ${Questions.length}`
       progressbar()
-      Resultbar()
+      
       }
       function Next() {
         let select = document.querySelector('input[name="AnswarBox"]:checked');
@@ -153,25 +154,15 @@
       bar.style.width = `${percentage}%`
     }
     function Resultbar(){
-      let select = document.querySelector('input[name="AnswarBox"]:checked');
-      let Answar = select.value;
-      let correct = Questions[Index].answer; 
-      if(Answar == correct){
-        let percentage = ((Index + 1) / correct.length) * 100
-        if(percentage > 100){
-          return percentage
-        }
-        let percen =  document.getElementById('Abar')
-        percen.style.width = `${percen}%` 
-      }
-      else{
-        let percentage = ((Index + 1) / correct.length) * 100
-        if(percentage > 100){
-          return percentage
-        }
-        let percen =  document.getElementById('Wbar')
-        percen.style.width = `${percen}%` 
-      }
+      let Totalquestion  = Questions.length
+      let correctprcentage = (Cnum / Totalquestion) * 100 ;
+      let worngpercentage = (Wnum / Totalquestion) * 100
+      if(correctprcentage > 100) correctprcentage = 100
+      if(worngpercentage > 100) worngpercentage = 100
+      document.getElementById('Abar').style.width = `${correctprcentage}%`
+      document.getElementById('Wbar').style.width = `${worngpercentage}%`
+      document.getElementById('Abar').innerHTML = `${Math.floor(correctprcentage)}%`
+      document.getElementById('Wbar').innerHTML = `${Math.floor(worngpercentage)}%`
     }
       ShowData();
     </script>
