@@ -153,19 +153,26 @@
       bar.style.width = `${percentage}%`
     }
     function Resultbar(){
-  let totalQuestions = Questions.length;
-  let correctPercentage = (Cnum / totalQuestions) * 100;
-  let wrongPercentage = (Wnum / totalQuestions) * 100;
-
-  // limit 100%
-  if(correctPercentage > 100) correctPercentage = 100;
-  if(wrongPercentage > 100) wrongPercentage = 100;
-
-  // Set Bars
-  document.getElementById('Abar').style.width = `${correctPercentage}%`;
-  document.getElementById('Wbar').style.width = `${wrongPercentage}%`;
-}
-
+      let select = document.querySelector('input[name="AnswarBox"]:checked');
+      let Answar = select.value;
+      let correct = Questions[Index].answer; 
+      if(Answar == correct){
+        let percentage = ((Index + 1) / correct.length) * 100
+        if(percentage > 100){
+          return percentage
+        }
+        let percen =  document.getElementById('Abar')
+        percen.style.width = `${percen}%` 
+      }
+      else{
+        let percentage = ((Index + 1) / correct.length) * 100
+        if(percentage > 100){
+          return percentage
+        }
+        let percen =  document.getElementById('Wbar')
+        percen.style.width = `${percen}%` 
+      }
+    }
       ShowData();
     </script>
   </body>
