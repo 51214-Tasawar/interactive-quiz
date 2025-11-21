@@ -17,7 +17,9 @@
     </div>
     <div class="Inner-container" id="innerBox">
       <div class="nev-btn" onclick="Homepage()">
-        <button><i class="fa-solid fa-arrow-left" onclick="Homepage()"></i></button>
+        <button>
+          <i class="fa-solid fa-arrow-left" onclick="Homepage()"></i>
+        </button>
       </div>
       <p class="text1">Don't rush — choose the best answer.</p>
       <div class="Test-box" id="Test-box">
@@ -71,15 +73,15 @@
       let Wnum = 0;
       let time = 100;
       let timer = null;
-  function StartQuiz() {
-  document.getElementById("innerBox").style.display = "flex";
-  document.getElementById("outerBox").style.display = "none";
-  document.getElementById("modelBox").style.display = "none";
-  document.getElementById("Qbox").style.display = "block";
-  time = 100; 
-  Reset();
-  StartTime();
-}
+      function StartQuiz() {
+        document.getElementById("innerBox").style.display = "flex";
+        document.getElementById("outerBox").style.display = "none";
+        document.getElementById("modelBox").style.display = "none";
+        document.getElementById("Qbox").style.display = "block";
+        time = 100;
+        Reset();
+        StartTime();
+      }
       function Homepage() {
         document.getElementById("innerBox").style.display = "none";
         document.getElementById("outerBox").style.display = "flex";
@@ -161,7 +163,7 @@
         Cnum = 0;
         Wnum = 0;
         showQuestion();
-        StartQuiz()
+        StartQuiz();
       }
       function progressbar() {
         let percentage = ((Index + 1) / Questions.length) * 100;
@@ -209,13 +211,13 @@
         }, 1000);
       }
       function GoHomeAfterModal() {
-  clearInterval(timer);
-  time = 100; 
-  document.getElementById("modelBox").style.display = "none";
-  document.getElementById("innerBox").style.display = "none";
-  document.getElementById("outerBox").style.display = "flex";
-  document.getElementById("Qbox").style.display = "block";
-}
+        clearInterval(timer);
+        time = 100;
+        document.getElementById("modelBox").style.display = "none";
+        document.getElementById("innerBox").style.display = "none";
+        document.getElementById("outerBox").style.display = "flex";
+        document.getElementById("Qbox").style.display = "block";
+      }
 
       ShowData();
     </script>
