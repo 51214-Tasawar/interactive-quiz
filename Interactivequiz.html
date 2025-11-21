@@ -20,14 +20,19 @@
         <button><i class="fa-solid fa-arrow-left"></i></button>
       </div>
       <p class="text1">Don't rush — choose the best answer.</p>
-      <div class="Test-box">
+      <div class="Test-box" id="Test-box">
+        <p id="TimeBox"></p>
         <div class="Qbox" id="Qbox"></div>
         <button class="S-btn" onclick="Next()">Save&Next</button>
         <div class="container">
           <div class="progress">
             <div id="P-bar"></div>
           </div>
-          <p id="p-Text" ></p>
+          <p id="p-Text"></p>
+        </div>
+        <div id="modelBox">
+          <p>You Cross The Time Linmit</p>
+          <button onclick="StartQuiz()" id="btn-modelBox">Ok</button>
         </div>
       </div>
       <button class="R-btn" onclick="Reset()">Reset</button>
@@ -46,8 +51,8 @@
         </div>
       </div>
       <div class="Resultbar">
-     <div id="Abar"></div>
-     <div id="Wbar"></div>
+        <div id="Abar"></div>
+        <div id="Wbar"></div>
       </div>
       <div class="btn-section">
         <button class="btn-section1" onclick="Homepage()">
@@ -58,11 +63,14 @@
         </button>
       </div>
     </div>
+
     <script>
       let Questions = [];
       let Index = 0;
       let Cnum = 0;
       let Wnum = 0;
+      let time = 20;
+      let timer = null;
       function StartQuiz() {
         document.getElementById("innerBox").style.display = "flex";
         document.getElementById("outerBox").style.display = "none";
@@ -83,10 +91,11 @@
       }
       function showQuestion() {
         if (Index >= Questions.length) {
-          Resultbar()
+          Resultbar();
           document.getElementById("scoringBox").style.display = "flex";
           document.getElementById("outerBox").style.display = "none";
           document.getElementById("innerBox").style.display = "none";
+
           return;
         }
         let newQuestion = Questions[Index];
@@ -117,11 +126,15 @@
       <label for="option4">${newQuestion.option4}</label>
       </div>
       `;
-      document.getElementById('p-Text').innerHTML = `${Index+1} / ${Questions.length}`
-      progressbar()
-      
+        document.getElementById("p-Text").innerHTML = `${Index + 1} / ${
+          Questions.length
+        }`;
+        progressbar();
+        StartTime();
       }
       function Next() {
+        clearInterval(timer);
+        StartTime();
         let select = document.querySelector('input[name="AnswarBox"]:checked');
         if (!select) {
           alert("Please Select Answar ");
@@ -145,25 +158,51 @@
         Wnum = 0;
         showQuestion();
       }
-    function progressbar(){
-      let percentage = ((Index+1)/ Questions.length) * 100
-      if(percentage > 100){
-        return 100
+      function progressbar() {
+        let percentage = ((Index + 1) / Questions.length) * 100;
+        if (percentage > 100) {
+          return 100;
+        }
+        let bar = document.getElementById("P-bar");
+        bar.style.width = `${percentage}%`;
       }
-      let bar = document.getElementById('P-bar')
-      bar.style.width = `${percentage}%`
-    }
-    function Resultbar(){
-      let Totalquestion  = Questions.length
-      let correctprcentage = (Cnum / Totalquestion) * 100 ;
-      let worngpercentage = (Wnum / Totalquestion) * 100
-      if(correctprcentage > 100) correctprcentage = 100
-      if(worngpercentage > 100) worngpercentage = 100
-      document.getElementById('Abar').style.width = `${correctprcentage}%`
-      document.getElementById('Wbar').style.width = `${worngpercentage}%`
-      document.getElementById('Abar').innerHTML = `${Math.floor(correctprcentage)}%`
-      document.getElementById('Wbar').innerHTML = `${Math.floor(worngpercentage)}%`
-    }
+      function Resultbar() {
+        let Totalquestion = Questions.length;
+        let correctprcentage = (Cnum / Totalquestion) * 100;
+        let worngpercentage = (Wnum / Totalquestion) * 100;
+        if (correctprcentage > 100) correctprcentage = 100;
+        if (worngpercentage > 100) worngpercentage = 100;
+        document.getElementById("Abar").style.width = `${correctprcentage}%`;
+        document.getElementById("Wbar").style.width = `${worngpercentage}%`;
+        document.getElementById("Abar").innerHTML = `${Math.floor(
+          correctprcentage
+        )}%`;
+        document.getElementById("Wbar").innerHTML = `${Math.floor(
+          worngpercentage
+        )}%`;
+      }
+      function StartTime() {
+        clearInterval(timer);
+        timer = setInterval(() => {
+          time--;
+          let min = Math.floor(time / 60);
+          let sec = time % 60;
+          if (sec < 10) sec = "0" + sec;
+
+          document.getElementById(
+            "TimeBox"
+          ).innerHTML = `<i class="fa-solid fa-clock"></i> ${min}:${sec}`;
+          if (time <= 30) {
+            document.getElementById("TimeBox").style.backgroundColor = "red";
+          }
+          if (time <= 0) {
+            clearInterval(timer);
+            document.getElementById("Qbox").style.display = "none";
+            document.getElementById("modelBox").style.display = "flex";
+            document.getElementById("modelBox").style.zIndex = 1;
+          }
+        }, 1000);
+      }
       ShowData();
     </script>
   </body>

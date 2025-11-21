@@ -67,14 +67,24 @@ html{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+}
+#TimeBox{
+    width: 30%;
+    height: 10%;
+    background-color: blue;
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 .Qbox{
     display: flex;
     flex-direction: column;
     padding: 15PX;
     border-radius: 10PX;
-    width: 70%;
+    width: 65%;
     height: 70%;
 }
 .S-btn{
@@ -247,4 +257,27 @@ label , p{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.option1,.option2,.option3,.option4 {
+    cursor: pointer;
+}
+#modelBox {
+    display: none;
+    width: 200px;
+    height: 250px;
+    background-color: white;
+    border-radius: 20px;
+    color: red;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#btn-modelBox{
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    height:40px;
+    width: 70px;
 }
