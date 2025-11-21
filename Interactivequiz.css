@@ -6,6 +6,7 @@ html{
 }
 .Main-container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -67,6 +68,7 @@ html{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 #TimeBox{
     width: 30%;
@@ -79,13 +81,28 @@ html{
     align-items: center;
     gap: 10px;
 }
+.answar-box{
+    height: 10%;
+    width: 90%;
+    border: solid 2px ;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 1s;
+}
+.answar-box:hover{
+    height: 12%;
+    width: 93%;
+}
 .Qbox{
     display: flex;
+    background-color: white;
     flex-direction: column;
     padding: 15PX;
     border-radius: 10PX;
-    width: 65%;
-    height: 70%;
+    width: 70%;
+    height: 60%;
+
 }
 .S-btn{
     width: 70%;

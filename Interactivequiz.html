@@ -17,7 +17,7 @@
     </div>
     <div class="Inner-container" id="innerBox">
       <div class="nev-btn" onclick="Homepage()">
-        <button><i class="fa-solid fa-arrow-left"></i></button>
+        <button><i class="fa-solid fa-arrow-left" onclick="Homepage()"></i></button>
       </div>
       <p class="text1">Don't rush — choose the best answer.</p>
       <div class="Test-box" id="Test-box">
@@ -32,7 +32,7 @@
         </div>
         <div id="modelBox">
           <p>You Cross The Time Linmit</p>
-          <button onclick="StartQuiz()" id="btn-modelBox">Ok</button>
+          <button onclick="GoHomeAfterModal()" id="btn-modelBox">Ok</button>
         </div>
       </div>
       <button class="R-btn" onclick="Reset()">Reset</button>
@@ -69,13 +69,17 @@
       let Index = 0;
       let Cnum = 0;
       let Wnum = 0;
-      let time = 20;
+      let time = 100;
       let timer = null;
-      function StartQuiz() {
-        document.getElementById("innerBox").style.display = "flex";
-        document.getElementById("outerBox").style.display = "none";
-        Reset();
-      }
+  function StartQuiz() {
+  document.getElementById("innerBox").style.display = "flex";
+  document.getElementById("outerBox").style.display = "none";
+  document.getElementById("modelBox").style.display = "none";
+  document.getElementById("Qbox").style.display = "block";
+  time = 100; 
+  Reset();
+  StartTime();
+}
       function Homepage() {
         document.getElementById("innerBox").style.display = "none";
         document.getElementById("outerBox").style.display = "flex";
@@ -101,25 +105,25 @@
         let newQuestion = Questions[Index];
         document.getElementById("Qbox").innerHTML = `
       <p>Q-${Index + 1} : ${newQuestion.question}</p>
-      <div>
+      <div class="answar-box">
       <input type="radio" name="AnswarBox" id="option1" class="option1" value="${
         newQuestion.option1
       }">
       <label for="option1">${newQuestion.option1}</label>
       </div>
-      <div>
+      <div class="answar-box">
       <input type="radio" name="AnswarBox" id="option2" class="option2" value="${
         newQuestion.option2
       }">
       <label for="option2">${newQuestion.option2}</label>
       </div>
-      <div>
+      <div class="answar-box">
       <input type="radio" name="AnswarBox" id="option3" class="option3"  value="${
         newQuestion.option3
       }">
       <label for="option3">${newQuestion.option3}</label>
       </div>
-      <div>
+      <div class="answar-box">
       <input type="radio" name="AnswarBox" id="option4" class="option4" value="${
         newQuestion.option4
       }">
@@ -157,6 +161,7 @@
         Cnum = 0;
         Wnum = 0;
         showQuestion();
+        StartQuiz()
       }
       function progressbar() {
         let percentage = ((Index + 1) / Questions.length) * 100;
@@ -203,6 +208,15 @@
           }
         }, 1000);
       }
+      function GoHomeAfterModal() {
+  clearInterval(timer);
+  time = 100; 
+  document.getElementById("modelBox").style.display = "none";
+  document.getElementById("innerBox").style.display = "none";
+  document.getElementById("outerBox").style.display = "flex";
+  document.getElementById("Qbox").style.display = "block";
+}
+
       ShowData();
     </script>
   </body>
